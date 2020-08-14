@@ -46,6 +46,7 @@ void student :: insert_at_beg()
     //create new node
     temp=new stud;
     cin>>temp->roll_no;
+    temp->next=NULL;
 
     // for first node
     if(first==NULL)
