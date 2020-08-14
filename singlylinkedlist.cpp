@@ -65,17 +65,12 @@ void student :: insert_at_end()
     //create new node
     temp=new stud;
     cin>>temp->roll_no;
+    temp->next=NULL;
 
-    //for first node
-    if(first==NULL)
-        first=last=temp;
+    //for all other node
+    last->next=temp;
+    last=temp;
 
-    //for all other nodes
-    else
-    {
-        last->next=temp;
-        last=temp;
-    }
 }
 
 void student :: insert_in_mid(int pos)
@@ -85,6 +80,7 @@ void student :: insert_in_mid(int pos)
     //create new node
     temp1=new stud;
     cin>>temp1->roll_no;
+    temp1->next=NULL;
 
     //temp traverses to the node after which the user want to inert new node
     temp=first;
@@ -110,6 +106,8 @@ void student :: delete_from_beg()
     else if(first==last)
     {
         cout<<"Deleting node with data : "<<first->roll_no;
+        temp=first;
+        delete temp;
         first=NULL;
         last=NULL;
     }
@@ -118,8 +116,8 @@ void student :: delete_from_beg()
     else
     {
         temp=first;
-        delete temp;
         first=first->next;
+        delete temp;
     }
 }
 
@@ -148,6 +146,8 @@ void student :: delete_from_mid(int pos)
 void student :: delete_from_end()
 {
 
+    temp=first;
+
     //check if list is empty
     if(first==NULL)
         cout<<"List is empty. Underflow.";
@@ -156,6 +156,7 @@ void student :: delete_from_end()
     else if(first==last)
     {
         cout<<"Deleting node with data : "<<first->roll_no;
+        delete temp;
         first=NULL;
         last=NULL;
     }
@@ -163,7 +164,6 @@ void student :: delete_from_end()
     //deleting node from end of the list
     else
     {
-        temp=first;
         temp1=last;
         while(temp->next!=NULL)
         {
@@ -193,8 +193,8 @@ void student :: search_item(int search)
     temp=first; int count=0;
     while(temp->next!=NULL)
     {
-            count++;
-            if(temp->roll_no==search)
+        count++;
+        if(temp->roll_no==search)
         {
             cout<<"Item found at position : "<<count;
             break;
@@ -245,6 +245,7 @@ int main()
    do
     {
         system("cls");
+        cout<<"MENU TO PERFORM ACTIONS ON A SINGLY LINKED LIST\n";
         cout<<"1. Insert at beginning.\n";
         cout<<"2. Insert in middle.\n";
         cout<<"3. Insert at end.\n";
