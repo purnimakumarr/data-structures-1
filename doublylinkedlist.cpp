@@ -22,7 +22,6 @@ public:
     void delete_from_mid(int);
     void delete_from_end();
     void search_item(int);
-    void reverse_list();
     void count_item();
     void display();
 };
