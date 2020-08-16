@@ -36,7 +36,16 @@ student :: student()
 //destructor
 student :: ~student()
 {
-    cout<<"Memory cleared.";
+    stud *p, *p1=tail;
+    for( ; p!=p1 ; )
+    {
+        p=tail->next;
+        delete tail;
+        tail=p;
+        cout<<"Memory cleared.";
+    }
+    delete p;
+    delete p1;
 }
 
 void student :: insert_at_beg()
