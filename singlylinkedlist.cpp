@@ -36,7 +36,7 @@ student :: student()
 //destructor
 student :: ~student()
 {
-    for(stud *p; first!=NULL!)
+    for(stud *p; first!=NULL; )
     {
         p=first->next;
         delete first;
