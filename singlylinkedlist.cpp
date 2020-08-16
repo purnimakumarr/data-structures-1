@@ -31,8 +31,6 @@ student :: student()
 {
     first=NULL;
     last=NULL;
-    temp=NULL;
-    temp1=NULL;
 }
 
 //destructor
@@ -166,7 +164,7 @@ void student :: delete_from_end()
     else
     {
         temp1=last;
-        while(temp->next!=NULL)
+        while(temp->next!=last)
         {
             temp=temp->next;
         }
@@ -211,7 +209,7 @@ void student :: reverse_list()
     temp=first;
     temp1=first->next;
 
-    while(temp1!=last)
+    while(temp!=last)
     {
         flag=temp1->next;
         temp1->next=temp;
@@ -220,7 +218,7 @@ void student :: reverse_list()
     }
     first->next=NULL;
     last=first;
-    first=temp1;
+    first=temp;
 }
 
 void student :: display()
@@ -276,20 +274,20 @@ int main()
                        break;
 
             case 4 : obj.delete_from_beg();
-                       cout<<"List after deletion is : ";
+                       cout<<"\nList after deletion is : ";
                        obj.display();
                        break;
 
             case 5 : cout<<"Enter the list item no. you want to delete : ";
                        cin>>pos;
                        obj.delete_from_mid(pos);
-                       cout<<"List after deletion : ";
+                       cout<<"\nList after deletion : ";
                        obj.display();
                        break;
 
             case 6 : obj.delete_from_end();
-                       cout<<"List after deletion : ";
-                       obj.delete_from_end();
+                       cout<<"\nList after deletion : ";
+                       obj.diaplay();
                        break;
 
             case 7 : cout<<"Enter the item data you want to search : ";
