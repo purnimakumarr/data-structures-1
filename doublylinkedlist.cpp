@@ -109,7 +109,7 @@ void student :: delete_from_beg()
     {
         cout<<"Deleting node with data : "<<first->roll_no;
         temp=first;
-        delete first;
+        delete temp;
         first=NULL;
         last=NULL;
     }
@@ -142,7 +142,7 @@ void student :: delete_from_mid(int pos)
         }
         temp1=temp->next;
         temp->next=(temp->next)->next;
-        (temp->next)->pre=temp;
+        (temp->next)->pre=temp; //links the next node to the previous node of the node to be deleted
         delete temp1;
     }
 }
@@ -228,6 +228,7 @@ int main()
    do
     {
         system("cls");
+        cout<<"MENU TO PERFORM ACTIONS ON A DOUBLY LINKED LIST.\n";
         cout<<"1. Insert at beginning.\n";
         cout<<"2. Insert in middle.\n";
         cout<<"3. Insert at end.\n";
