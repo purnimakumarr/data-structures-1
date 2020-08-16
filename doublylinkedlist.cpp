@@ -45,6 +45,7 @@ student :: ~student()
         first=p;
         cout<<"Memory cleared.\n";
      }
+     delete p;
 }
 
 void student :: insert_at_beg()
