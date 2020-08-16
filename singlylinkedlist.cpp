@@ -36,6 +36,12 @@ student :: student()
 //destructor
 student :: ~student()
 {
+    for(stud *p; first!=NULL!)
+    {
+        p=first->next;
+        delete first;
+        first=p;
+     }
     cout<<"Memory cleared.";
 }
 
@@ -287,7 +293,7 @@ int main()
 
             case 6 : obj.delete_from_end();
                        cout<<"\nList after deletion : ";
-                       obj.diaplay();
+                       obj.display();
                        break;
 
             case 7 : cout<<"Enter the item data you want to search : ";
