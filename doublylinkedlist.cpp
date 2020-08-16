@@ -38,11 +38,12 @@ student :: student()
 //destructor
 student :: ~student()
 {
-    for(stud *p; first!=NULL; )
+    stud *p;
+    for(p=first; p!=NULL; )
     {
-         p=first->next;
-         delete first;
-         first=p;
+        p=first->next;
+        delete first;
+        first=p;
      }
     cout<<"Memory cleared.";
 }
