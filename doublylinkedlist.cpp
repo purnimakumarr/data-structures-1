@@ -3,18 +3,22 @@
 
 using namespace std;
 
-class student
+template <class X>
+class node
 {
-    struct stud
-    {
-        int roll_no;
-        stud *next;
-        stud *pre;
-    } *first, *last, *temp, *temp1;
+public :
+    X data;
+    node *next, *pre;
+};
+
+template <class X>
+class list
+{
+   node<X> *first, *last, *temp, *temp1;
 
 public:
-    student();
-    ~student();
+    list();
+    ~list();
     void insert_at_beg();
     void insert_in_mid(int);
     void insert_at_end();
@@ -24,35 +28,35 @@ public:
     void search_item(int);
     void count_item();
     void display();
+    void reverse_list();
 };
 
 //constructor
-student :: student()
+template <class X>
+list<X> :: list()
 {
     first=NULL;
     last=NULL;
-    temp=NULL;
-    temp1=NULL;
 }
 
 //destructor
-student :: ~student()
+template <class X>
+list<X> :: ~list()
 {
-    for(stud *p; first!=NULL; )
+    for(node<X> *p; first!=NULL; )
     {
         p=first->next;
         delete first;
         first=p;
-        cout<<"Memory cleared.\n";
-     }
-     delete p;
+    }
 }
 
-void student :: insert_at_beg()
+template <class X>
+void list<X> :: insert_at_beg()
 {
     //create new node
-    temp=new stud;
-    cin>>temp->roll_no;
+    temp=new node<X>;
+    cin>>temp->data;
     temp->next=NULL;
     temp->pre=NULL;
 
@@ -69,43 +73,60 @@ void student :: insert_at_beg()
 
 }
 
-void student :: insert_at_end()
+template <class X>
+void list<X> :: insert_at_end()
 {
     //create new node
-    temp=new stud;
-    cin>>temp->roll_no;
+    temp=new node<X>;
+    cin>>temp->data;
     temp->next=NULL;
     temp->pre=NULL;
 
+    // for first node
+    if(first==NULL)
+        first=last=temp;
+
     //insert node in the list
-    last->next=temp;
-    temp->pre=last;
-    last=temp;
+    else
+    {
+        last->next=temp;
+        temp->pre=last;
+        last=temp;
+    }
 }
 
-void student :: insert_in_mid(int pos)
+template <class X>
+void list<X> :: insert_in_mid(int pos)
 {
     int count=1;
 
     //create new node
-    temp1=new stud;
-    cin>>temp1->roll_no;
+    temp1=new node<X>;
+    cin>>temp1->data;
 
-    //temp traverses to the node after which the user want to inert new node
-    temp=first;
-    while(count<pos-1)
+    // for first node
+    if(first==NULL)
+        first=last=temp;
+
+    else
     {
-        temp=temp->next;
-        count++;
-    }
+        //temp traverses to the node after which the user want to inert new node
+        temp=first;
+        while(count<pos-1)
+        {
+            temp=temp->next;
+            count++;
+        }
 
-    //inserting new node
-    temp1->next=temp->next;
-    temp->next=temp1;
+        //inserting new node
+        temp1->next=temp->next;
+        temp->next=temp1;
+    }
 
 }
 
-void student :: delete_from_beg()
+template <class X>
+void list<X> :: delete_from_beg()
 {
     //check if list is empty
     if(first==NULL)
@@ -114,7 +135,7 @@ void student :: delete_from_beg()
     //list contains only one node
     else if(first==last)
     {
-        cout<<"Deleting node with data : "<<first->roll_no;
+        cout<<"Deleting node with data : "<<first->data;
         temp=first;
         delete temp;
         first=NULL;
@@ -131,7 +152,8 @@ void student :: delete_from_beg()
     }
 }
 
-void student :: delete_from_mid(int pos)
+template <class X>
+void list<X> :: delete_from_mid(int pos)
 {
     int count=1;
     //check if list is empty
@@ -154,7 +176,8 @@ void student :: delete_from_mid(int pos)
     }
 }
 
-void student :: delete_from_end()
+template <class X>
+void list<X> :: delete_from_end()
 {
 
     //check if list is empty
@@ -164,7 +187,7 @@ void student :: delete_from_end()
     //list contains only one node
     else if(first==last)
     {
-        cout<<"Deleting node with data : "<<first->roll_no;
+        cout<<"Deleting node with data : "<<first->data;
         temp=first;
         delete temp;
         first=NULL;
@@ -181,37 +204,55 @@ void student :: delete_from_end()
     }
 }
 
-void student :: count_item()
+template <class X>
+void list<X> :: count_item()
 {
-    int counter=0;
-    temp=first;
+    //check if list is empty
+    if(first==NULL)
+        cout<<"List is empty. Underflow.";
 
-    while(temp!=NULL)
+    else
     {
-        counter++;
-        temp=temp->next;
-    }
-    cout<<"No. of list items : "<<counter;
-}
+        int counter=0;
+        temp=first;
 
-void student :: search_item(int search)
-{
-    temp=first; int count=0;
-    while(temp->next!=NULL)
-    {
-            count++;
-            if(temp->roll_no==search)
+        while(temp!=NULL)
         {
-            cout<<"Item found at position : "<<count;
-            break;
+            counter++;
+            temp=temp->next;
         }
-        temp=temp->next;
+        cout<<"No. of list items : "<<counter;
     }
-    if(count==0)
-        cout<<"Item not found in the list.";
 }
 
-void student :: display()
+template <class X>
+void list<X> :: search_item(int search)
+{
+   //check if list is empty
+    if(first==NULL)
+        cout<<"List is empty. Underflow.";
+
+    else
+    {
+        temp=first; int counter=0, pos=0;
+        while(temp!=NULL)
+        {
+            pos++;
+            if(temp->data==search)
+            {
+                counter=1;
+                cout<<"Item found at position : "<<pos;
+                break;
+            }
+            temp=temp->next;
+        }
+        if(counter==0)
+            cout<<"Item not found in the list.";
+    }
+}
+
+template <class X>
+void list<X> :: display()
 {
     temp=first;
 
@@ -223,19 +264,44 @@ void student :: display()
     {
         while(temp!=NULL)
         {
-            cout<<temp->roll_no<<" ";
+            cout<<temp->data<<" ";
             temp=temp->next;
         }
     }
 }
 
+template <class X>
+void list<X> :: reverse_list()
+{
+    //check if list is empty
+    if(first==NULL)
+        cout<<"List is empty. Underflow.";
+
+    else
+    {
+        temp=first;
+
+        while(temp!=NULL)
+        {
+            temp1=temp->next;
+            temp->next=temp->pre;
+            temp->pre=temp1;
+            temp=temp1;
+        }
+
+        temp=last;
+        last=first;
+        first=temp;
+    }
+}
+
 int main()
 {
-   student obj; int ch; char ch1; int pos,search;
+   list<int> obj; int ch; char ch1; int pos,search;
    do
     {
         system("cls");
-        cout<<"MENU TO PERFORM ACTIONS ON A DOUBLY LINKED LIST.\n";
+        cout<<"MENU TO PERFORM ACTIONS ON A DOUBLY LINKED LIST USING TEMPLATES.\n";
         cout<<"1. Insert at beginning.\n";
         cout<<"2. Insert in middle.\n";
         cout<<"3. Insert at end.\n";
@@ -244,7 +310,8 @@ int main()
         cout<<"6. Delete from end.\n";
         cout<<"7. Search in the linked list.\n";
         cout<<"8. Count the no of items in the list.\n";
-        cout<<"9. Display the linked list.\n";
+        cout<<"9. Reverse the linked list.\n";
+        cout<<"10. Display the linked list.\n";
         cout<<"Enter choice : ";
         cin>>ch;
 
@@ -288,7 +355,12 @@ int main()
             case 8 : obj.count_item();
                        break;
 
-            case 9 : cout<<"Linked List : ";
+            case 9 : obj.reverse_list();
+                     cout<<"List after reversing : ";
+                     obj.display();
+                     break;
+
+            case 10 : cout<<"Linked List : ";
                         obj.display();
                         break;
 
