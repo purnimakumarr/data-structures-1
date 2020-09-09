@@ -15,7 +15,7 @@ public:
     ~QueueUsingStack();
     void enqueue(int);
     int dequeue(QueueUsingStack&);
-    void display();
+    void display(QueueUsingStack&);
     void push(int);
     int pop();
     int isEmpty();
@@ -72,19 +72,30 @@ int QueueUsingStack :: dequeue(QueueUsingStack &s)
     return x;
 }
 
-void QueueUsingStack :: display()
+void QueueUsingStack :: display(QueueUsingStack &s)
 {
-    temp=top;
     if(isEmpty())
         cout<<"Queue is empty.";
     else
     {
+        while(!isEmpty())
+        {
+            int x=pop();
+            s.push(x);
+        }
         cout<<"Queue : ";
+        temp=s.top;
         while(temp!=NULL)
         {
             cout<<temp->data<<" ";
             temp=temp->next;
         }
+        while(!s.isEmpty())
+        {
+            int x=s.pop();
+            push(x);
+        }
+
     }
 }
 void QueueUsingStack :: push(int item)
@@ -142,7 +153,7 @@ int main()
                             cout<<"Data deleted : "<<item;
                         break;
 
-            case '3' :  s1.display();
+            case '3' :  s1.display(s2);
                         break;
 
             default  :  cout<<"\nInvalid Input.";
