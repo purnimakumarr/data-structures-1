@@ -37,7 +37,7 @@ public:
     void recursive_preorder(Node*);
     void recursive_postorder(Node*);
     void recursive_inorder(Node*);
-    void count_leaf(Node*, int);
+    void count_leaf(Node*, int,  int);
 };
 
 //construtor for stack
@@ -167,16 +167,23 @@ void BinarySearchTree::recursive_inorder(Node* temp)
 }
 
 //counts no. of leaves in the tree
-void BinarySearchTree::count_leaf(Node *temp, int count=0)
+void BinarySearchTree::count_leaf(Node *temp, int c1=0, int c2=0)
 {
     if (temp != NULL)
     {
-        if (temp->right == NULL && temp->left == NULL)
-            count++;
+        if (temp->right != NULL && temp->left != NULL)
+            c1++;
 
-        count_leaf(temp->right, count);
-        count_leaf(temp->left, count);
+        if (temp->right == NULL && temp->left == NULL)
+            c2++;
+
+        count(temp->right, c1, c2);
+        count(temp->left, c1, c2);
     }
+
+    cout << "Leaf : " << c1;
+    cout << "Non-leaf: " << c2;
+    cout << "Total nodes : " << c1 + c2;
 }
 
 int main()
