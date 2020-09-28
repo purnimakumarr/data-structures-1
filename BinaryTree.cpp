@@ -37,12 +37,6 @@ public:
     void recursive_preorder(Node*);
     void recursive_postorder(Node*);
     void recursive_inorder(Node*);
-    void iterative_preorder(Node*);
-    void iterative_postorder(Node*);
-    void iterative_inorder(Node*);
-    void search_tree(int);
-    void bfs_traversal(Node*);
-    void mirrorimage();
     void count_leaf(Node*, int);
 };
 
