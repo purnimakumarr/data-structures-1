@@ -14,7 +14,7 @@ struct Node
     int data;
     Node* left;
     Node* right;
-}*root=NULL;
+}*root=NULL, *mirror = NULL;;
 
 //Stack
 class stack
@@ -59,6 +59,7 @@ public:
     void bfs_traversal(Node*);
     int count_leaf(Node*);
     int count_nonleaf(Node*);
+    void mirror_image(Node*, Node**);
 };
 
 //construtor for stack
@@ -394,9 +395,24 @@ void BinarySearchTree::bfs_traversal(Node* temp)
     }
 }
 
+//creates a  mirror image of the binary tree
+void BinarySearchTree::mirror_image(Node *temp, Node **mirror)
+{
+    if (temp != NULL)
+    {
+        *mirror = new Node;
+        (*mirror)->data = temp->data;
+        (*mirror)->left = NULL;
+        (*mirror)->right = NULL;
+
+        mirror_image(temp->left, &((*mirror)->right));
+        mirror_image(temp->right, &((*mirror)->left));
+    }
+}
+
 int main()
 {
-    char ch; int c; BinarySearchTree B; int c1, c2;
+    char ch; int c; BinarySearchTree B; int c1, c2; 
     do
     {
         system("cls");
@@ -408,9 +424,10 @@ int main()
         cout << "\n5. Print tree in preorder(iterative)";
         cout << "\n6. Print tree in postorder(iterative)";
         cout << "\n7. Print tree in inorder(iterative)";
-        cout << "\n9. Count no. of leaf nodes, non-leaf nodes and total no. of nodes in the tree";
-        cout << "\n10. Search in tree";
-        cout << "\n11. Print BFS traversal";
+        cout << "\n8. Count no. of leaf nodes, non-leaf nodes and total no. of nodes in the tree";
+        cout << "\n9. Search in tree";
+        cout << "\n10. Print BFS traversal";
+        cout << "\n11. Create Mirror image of tree.";
         cout << "\nEnter your choice : ";
         cin >> c;
 
@@ -443,6 +460,10 @@ int main()
             break;
         case 10: B.bfs_traversal(root);
             break;
+        case 11: B.mirror_image(root, &mirror);
+                 cout << "Mirror image created:-\n";
+                 B.bfs_traversal(mirror);
+            break;     
         default: cout << "INVALID INPUT. TRY AGAIN";
         }
         cout << "\nDo you wan to revisit the menu(press y/n) : ";
