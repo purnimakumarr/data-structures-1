@@ -60,6 +60,7 @@ public:
     int count_leaf(Node*);
     int count_nonleaf(Node*);
     void mirror_image(Node*, Node**);
+    int getHeight(Node*);
 };
 
 //construtor for stack
@@ -410,6 +411,26 @@ void BinarySearchTree::mirror_image(Node *temp, Node **mirror)
     }
 }
 
+//calculates height of the binary tree using recurssion
+int BinarySearchTree::getHeight(Node* temp)
+{
+    if (temp == NULL)
+        return 0; //if node is NULL returns zero
+    else
+    {
+        //evaluates depth for right subtrees
+        int right_depth = getHeight(temp->right);
+
+        //evaluates depth for left subtrees
+        int left_depth = getHeight(temp->left);
+
+        //the maximum depth is taken into account and then 1 is added for the root node
+        if (right_depth > left_depth)
+            return right_depth+1;
+        else
+            return left_depth+1;
+    }
+}
 int main()
 {
     char ch; int c; BinarySearchTree B; int c1, c2; 
@@ -428,6 +449,7 @@ int main()
         cout << "\n9. Search in tree";
         cout << "\n10. Print BFS traversal";
         cout << "\n11. Create Mirror image of tree.";
+        cout << "\n12. Print height of Binary Tree. ";
         cout << "\nEnter your choice : ";
         cin >> c;
 
@@ -463,7 +485,9 @@ int main()
         case 11: B.mirror_image(root, &mirror);
                  cout << "Mirror image created:-\n";
                  B.bfs_traversal(mirror);
-            break;     
+            break;  
+        case 12: cout << "Height of Binary Tree : " << B.getHeight(root);
+            break;
         default: cout << "INVALID INPUT. TRY AGAIN";
         }
         cout << "\nDo you wan to revisit the menu(press y/n) : ";
