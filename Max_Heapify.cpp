@@ -5,8 +5,8 @@
 using namespace std;
 
 //global decalaration 
-#define size 11
-int arr[size];
+#define size 10
+int arr[20];
 
 //swapping two numbers
 void swap(int& a, int& b)
@@ -16,10 +16,10 @@ void swap(int& a, int& b)
 	b = c;
 }
 
-void max_heapify(int key)
+void max_heapify(int index)
 {
-	int l = 2 * key, r = 2 * key + 1; //finding left and right childs of the element
-	int largest = key;
+	int l = 2 * index, r = 2 * index + 1; //finding left and right childs of the element
+	int largest = index;
 
 	//finding the largest from the parent, left child and right child
 	if (arr[largest] < arr[l])
@@ -30,33 +30,33 @@ void max_heapify(int key)
 
 	/*if largest is not the parent, then exchange the parent with largest and call max_heapify
 	for largest*/
-	if (largest != key)
+	if (largest != index)
 	{
-		swap(arr[key], arr[largest]);
+		swap(arr[index], arr[largest]);
 		max_heapify(largest);
 	}
 }
 
 int main()
 {
-	int k;
+	int i;
 
 	cout << "Enter an array : ";
-	for (int i = 1; i <= 10; i++)
-		cin >> arr[i];
+	for (int j = 1; j <= size; j++)
+		cin >> arr[j];
 
-	cout << "\nEnter key of the element for which you want to apply Max-Heapify Property : ";
-	cin >> k;
+	cout << "\nEnter index of the element for which you want to apply Max-Heapify Property : ";
+	cin >> i;
 
 	cout << "\n\nEntered array : ";
-	for (int i = 1; i <= 10; i++)
-		cout << arr[i] << " ";
+	for (int j = 1; j <= size; j++)
+		cout << arr[j] << " ";
 
-	max_heapify(k);
+	max_heapify(i);
 
 	cout << "\nUpdated array : ";
-	for (int i = 1; i <= 10; i++)
-		cout << arr[i] << " ";
+	for (int j = 1; j <= 10; j++)
+		cout << arr[j] << " ";
 
 	return 0;
 }
