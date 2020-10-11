@@ -6,7 +6,7 @@ using namespace std;
 
 //global decalaration 
 #define size 10
-int arr[20];
+int arr[size+1];
 
 //swapping two numbers
 void swap(int& a, int& b)
