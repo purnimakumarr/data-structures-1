@@ -14,7 +14,7 @@ using namespace std;
 
 //global declaration
 int size = 10;
-int arr[20];
+int arr[size+1];
 
 int getParent(int i)
 {
