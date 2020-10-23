@@ -23,6 +23,14 @@ public:
 	void insertion();
 	void deletion();
 };
+
+//constructor
+AVLTree::AVLTree()
+{
+       p = NULL;
+       q = NULL;
+}
+
 int main()
 {
 	AVLTree obj; char ch;
