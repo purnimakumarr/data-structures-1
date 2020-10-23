@@ -159,51 +159,51 @@ void AVLTree::balance_tree(Node* temp)
         if (temp1->bf < -1 || temp1->bf>1)
         {
             p = temp1;
+            //right child
+            if (temp->data >= p->data)
+                q = p->right;
+            //left child
+            else
+                q = p->left;
             flag = 1;
             break;
         }
-
-    
+   
     if (flag == 1)
     {
-        r = temp->parent; //immediate parent of newly inserted node
-        
-        //right child, right subtree
-        if (temp->data >= r->data && r->data >= r->parent->data)
+        r = temp->parent; //immediate parent
+        if (q == p->right)
         {
-            q = r->parent;
-            left_rotate(q, p);
+            //right subtree
+            if (temp->data >= q->data)
+                left_rotate(q, p);
+            else
+            {
+                right_rotate(r, q);
+                left_rotate(r, p);
+            }
         }
-        //right child, left subtree
-        else if (temp->data >= r->data && r->data < r->parent->data)
+        else if (q == p->left)
         {
-            q = r->parent;
-            right_rotate(r, q);
-            left_rotate(r, p);
-        }
-        //left child, left subtree
-        else if (temp->data < r->data && r->data < r->parent->data)
-        {
-            q = r;
-            right_rotate(q, p);
-        }
-        //left child, right subtree
-        else if (temp->data >= r->data && r->data >= r->parent->data)
-        {
-            q = r->parent;
-            left_rotate(r, q);
-            right_rotate(r, p);
+            //right subtree
+            if (temp->data >= q->data)
+            {
+                right_rotate(r, q);
+                left_rotate(r, p);
+            }
+            //left subtree
+            else
+                right_rotate(q, p);
         }
 
-        root->height=get_height(root);
-        calculate_bf(root);       
-    }  
+        root->height = get_height(root);
+        calculate_bf(root);
+    } 
 }
 
 //left rotation
 void AVLTree::left_rotate(Node* q, Node* p)
 {
-    q = p->right;
     p->right = q->left;
     q->left->parent = p;
     q->parent = p->parent;
@@ -222,7 +222,6 @@ void AVLTree::left_rotate(Node* q, Node* p)
 //right rotation
 void AVLTree::right_rotate(Node* q, Node *p)
 {
-    q = p->left;
     p->left = q->right;
     q->right->parent = p;
     q->parent = p->parent;
