@@ -34,8 +34,8 @@ public:
     int get_height(Node*);
     void calculate_bf(Node*);
     void balance_tree(Node*);
-    void right_rotate(Node*, Node*);
-    void left_rotate(Node*, Node*);
+    void right_rotate(Node*);
+    void left_rotate(Node*);
     void recursive_inorder(Node*);
 };
 
@@ -159,42 +159,31 @@ void AVLTree::balance_tree(Node* temp)
         if (temp1->bf < -1 || temp1->bf>1)
         {
             p = temp1;
-            //right child
-            if (temp->data >= p->data)
-                q = p->right;
-            //left child
-            else
-                q = p->left;
             flag = 1;
             break;
         }
    
     if (flag == 1)
     {
-        r = temp->parent; //immediate parent
-        if (q == p->right)
+        //right child, right subtree
+        if (p->bf == -2 && p->right->bf == -1)
+            left_rotate(p);
+        //right child, left subtree
+        else if (p->bf == -2 && p->right->bf == 1)
         {
-            //right subtree
-            if (temp->data >= q->data)
-                left_rotate(q, p);
-            else
-            {
-                right_rotate(r, q);
-                left_rotate(r, p);
-            }
+            right_rotate(p->right);
+            left_rotate(p);
+
         }
-        else if (q == p->left)
+        //left child, right subtree
+        else if (p->bf == 2 && p->left->bf == -1)
         {
-            //right subtree
-            if (temp->data >= q->data)
-            {
-                right_rotate(r, q);
-                left_rotate(r, p);
-            }
-            //left subtree
-            else
-                right_rotate(q, p);
+            left_rotate(p->left);
+            right_rotate(p);
         }
+        //left child, left subtree
+        else if (p->bf == 2 && p->left->bf == 1)
+            right_rotate(p);
 
         root->height = get_height(root);
         calculate_bf(root);
@@ -202,39 +191,41 @@ void AVLTree::balance_tree(Node* temp)
 }
 
 //left rotation
-void AVLTree::left_rotate(Node* q, Node* p)
+void AVLTree::left_rotate(Node* x)
 {
-    p->right = q->left;
-    q->left->parent = p;
-    q->parent = p->parent;
+    Node* y = x->right;
+    x->right = y->left;
+    y->left->parent = x;
+    y->parent = x->parent;
 
-    if (p->parent == NULL)
-        root = q;
-    else if (p == p->parent->left)
-        p->parent->left = q;
+    if (x->parent == NULL)
+        root = y;
+    else if (x == x->parent->left)
+        x->parent->left = y;
     else
-        p->parent->right = q;
+        x->parent->right = y;
 
-    q->left = p;
-    p->parent = q;
+    y->left = x;
+    x->parent = y;
 }
 
 //right rotation
-void AVLTree::right_rotate(Node* q, Node *p)
+void AVLTree::right_rotate(Node *x)
 {
-    p->left = q->right;
-    q->right->parent = p;
-    q->parent = p->parent;
+    Node* y = x->left;
+    x->left = y->right;
+    y->right->parent = x;
+    y->parent = x->parent;
 
-    if (p->parent == NULL)
-        root = q;
-    else if (p == p->parent->right)
-        p->parent->right = q;
+    if (x->parent == NULL)
+        root = y;
+    else if (x == x->parent->right)
+        x->parent->right = y;
     else
-        p->parent->left = q;
+        x->parent->left = y;
 
-    q->right = p;
-    p->parent = q;
+    y->right = x;
+    x->parent = y;
 
 }
 
