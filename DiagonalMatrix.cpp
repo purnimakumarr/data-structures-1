@@ -103,14 +103,13 @@ int main()
 		{
 		case'1': if (m!= 0)
 				{
+					cout << "Enter diagonal elements :-\n ";
 					for (int i = 0; i < m; i++)
-						for (int j = 0; j < n; j++)
-						{
-							cout << "Enter data : ";
-							cin >> data;
-							if (i == j)
-								obj.insert(data, i, j);
-						}
+					{
+						cout << "Enter data : ";
+						cin >> data;
+						obj.insert(data, i, i);
+					}
 				}
 			   else
 			   {
