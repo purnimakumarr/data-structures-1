@@ -69,7 +69,7 @@ diagonal_matrix::~diagonal_matrix()
 }
 int main()
 {
-	char ch; int m, n, data;
+	char ch; int m, n, data, x, y;
 
 	cout << "Enter size of matrix :-\n";
 	cout << "m : ";
@@ -103,7 +103,7 @@ int main()
 		{
 		case'1': if (m!= 0)
 				{
-					cout << "Enter diagonal elements :-\n ";
+					cout << "Enter diagonal elements :-\n";
 					for (int i = 0; i < m; i++)
 					{
 						cout << "Enter data : ";
@@ -122,12 +122,15 @@ int main()
 			obj.show(m ,n);
 			break;
 
-		case '3': cout << "Enter index whose value you want to retrieve :-\n ";
-			cout << "m : ";
-			cin >> m;
-			cout << "n : ";
-			cin >> n;
-			cout<<"\nRetrieved Value : "<<obj.retrieval(m, n);
+		case '3': cout << "Enter index whose value you want to retrieve :-\n";
+			cout << "x : ";
+			cin >> x;
+			cout << "y : ";
+			cin >> y;
+			if (x<0 || y<0 ||x>m || y>n)
+				cout << "Index out of range.";
+			else
+				cout << "\nRetrieved Value : " << obj.retrieval(x, y);
 			break;
 			
 		default: cout << "Invalid Input.";
