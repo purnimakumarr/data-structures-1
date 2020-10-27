@@ -30,6 +30,8 @@ diagonal_matrix::diagonal_matrix(int size=10)
 {
 	if (size != 0)
 		d = new int[size];
+	else
+		d = 0;
 }
 void diagonal_matrix::insert(int data, int m , int n)
 {
@@ -63,7 +65,7 @@ int diagonal_matrix::retrieval(int m, int n)
 //destructor
 diagonal_matrix::~diagonal_matrix()
 {
-	delete d;
+	delete []d;
 }
 int main()
 {
@@ -99,14 +101,22 @@ int main()
 
 		switch(ch)
 		{
-		case'1':for (int i = 0; i < m; i++)
-				 for (int j = 0; j < n; j++)
-				 {
-					 cout << "Enter data : ";
-					 cin >> data;
-					 if(i==j)
-						 obj.insert(data, i, j);
-				 }
+		case'1': if (m!= 0)
+				{
+					for (int i = 0; i < m; i++)
+						for (int j = 0; j < n; j++)
+						{
+							cout << "Enter data : ";
+							cin >> data;
+							if (i == j)
+								obj.insert(data, i, j);
+						}
+				}
+			   else
+			   {
+					cout << "\nMatrix size entered is zero.";
+					exit(0);
+			   }
 			break;
 
 		case '2': cout << "Diagonal Matrix :-\n";
